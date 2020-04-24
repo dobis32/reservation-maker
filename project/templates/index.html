@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reservation Maker</title>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><strong>Reservation Maker</strong></a>
+  </nav>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mt-5" id="scheduler">
+        <div class="row justify-content-lg-center" id="controls">
+          <div class="col col-lg-6 col-md-6">
+            <h3 id="select-location-label">Select a location</h3>
+            <div id="location-controls">
+              <div class="date-control">
+                <h4>Location</h4>
+                <select name="location" id="location">
+                  {% for location in available_locations %}
+                    <option value="{{location.id}}">{{location.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col col-lg-6 col-md-6">
+            <h3 id="select-date-label">Select a date</h3>
+            <div id="date-controls">
+              <div class="date-control">
+                <h4>Month</h4>
+                <select name="month" id="month" onChange="monthChange(event)">
+                  <option value="NONE">-- NONE --</option>
+                  <option value="JANUARY">January</option>
+                  <option value="FEBRUARY">February</option>
+                  <option value="MARCH">March</option>
+                  <option value="APRIL">April</option>
+                  <option value="MAY">May</option>
+                  <option value="JUNE">June</option>
+                  <option value="JULY">July</option>
+                  <option value="AUGUST">August</option>
+                  <option value="SEPTEMBER">September</option>
+                  <option value="OCTOBER">October</option>
+                  <option value="NOVEMBER">November</option>
+                  <option value="DECEMBER">December</option>
+                </select>
+              </div>
+              <div class="date-control">
+                <h4>Date</h4>
+                <select name="date" id="date">
+                  <option value="NONE">-- NONE --</option>
+                </select>
+              </div>
+              <div class="date-control">
+                <h4>Year</h4>
+                <input type="number" id="year">
+              </div>
+              <div onClick="dateChosen()" id="choose-date-button"><h3>Submit</h3></div>
+            </div>
+          </div>
+        </div> <!--  end controls row -->
+        <div class="row justify-content-center" id="slots">
+          <div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 mt-3">
+            {% for timeslot in times %}
+              {% if timeslot.available %}
+                <div class="timeslot" id="{{timeslot.id}}" onClick="setModalBuffers(event)">
+                  <h1 class="available" id="{{timeslot.id}}">{{timeslot.label}}</h1>
+                </div>
+              {% else %}
+                <div class="timeslot" id="T{{timeslot.id}}">
+                  <h1 class="unavailable" id="T{{timeslot.id}}">{{timeslot.label}}</h1>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div><!--  end scheduler -->
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="schedule-reservation-modal" tabindex="-1" role="dialog" aria-labelledby="schedule-reservation-modal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirm Reservation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <h5>Special requests:</h5>
+            </div>
+            <div class="row">
+              <textarea rows="8" cols="60" id="requests"></textarea>
+            </div>
+            <div class="row">
+              <h5>Email:</h5>
+            </div>
+            <div class="row">
+              <input type="text" id="email">            
+            </div>
+            <div class="row">
+              <h5>Date: <span id="reservation-date"></span></h5>
+            </div>
+            <div class="row">
+              <h5>Time: <span id="reservation-time"></span></h5>
+            </div>
+            <div class="row">
+              <h5>Location: <span id="location-name"></span></h5>
+            </div>
+            <div class="row">
+              <h5>Address: <span id="location-address"></span></h5>
+            </div>
+            <div class="row">
+              <h5>Questions about your appointment?</h5>
+            </div>
+            <div class="row">
+              <h5>Call us: <span id="location-contact"></span></h5>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onClick="scheduleReservation()">Confirm</button>
+            <input type="hidden" id="time-buffer">
+            <input type="hidden" id="date-buffer">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+</html>

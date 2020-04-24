@@ -1,0 +1,77 @@
+#main-content {
+	margin: 0px auto;
+}
+
+#select-date-label,
+#select-location-label {
+	padding-top: 30px;
+	text-align: center;
+}
+
+#date-controls,
+#location-controls {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.timeslot {
+	text-align: center;
+	color: #fff;
+	.available {
+		background-color: #273c75;
+		transition: background-color .2s ease-in;
+		border-radius: .2em;
+		cursor: pointer;
+		&:hover {
+			background-color: #4063c2;
+			transition: background-color .2s ease-in;
+		}
+	}
+	.unavailable {
+		color: #7f8fa6;
+		background-color: #718093;
+		border-radius: .2em;
+	}
+}
+
+#choose-date-button {
+	background-color: #2f3640;
+	transition: background-color .2s ease-in;
+	border-radius: .4em;
+	height: 3em;
+	margin-top: 10px;
+	cursor: pointer;
+	&:hover {
+		background-color: #4f5b6b;
+		transition: background-color .2s ease-in;
+	}
+	h3 {
+		color: #fff;
+		margin: .25em 8px 0px 8px;
+		text-align: center;
+	}
+}
+
+#date {
+	width: 60px;
+}
+
+#year {
+	width: 60px;
+}
+
+.modal-body {
+	.row {
+		h5 {
+			margin-left: 10px;
+		}
+		textarea {
+			margin: 0px auto 20px;
+		}
+		input {
+			margin-bottom: 16px;
+			margin-left: 36px;
+			width: 60%;
+		}
+	}
+}

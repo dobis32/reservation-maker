@@ -1,0 +1,89 @@
+#main-content {
+  margin: 0px auto;
+}
+
+#select-date-label,
+#select-location-label {
+  padding-top: 30px;
+  text-align: center;
+}
+
+#date-controls,
+#location-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.timeslot {
+  text-align: center;
+  color: #fff;
+}
+
+.timeslot .available {
+  background-color: #273c75;
+  -webkit-transition: background-color .2s ease-in;
+  transition: background-color .2s ease-in;
+  border-radius: .2em;
+  cursor: pointer;
+}
+
+.timeslot .available:hover {
+  background-color: #4063c2;
+  -webkit-transition: background-color .2s ease-in;
+  transition: background-color .2s ease-in;
+}
+
+.timeslot .unavailable {
+  color: #7f8fa6;
+  background-color: #718093;
+  border-radius: .2em;
+}
+
+#choose-date-button {
+  background-color: #2f3640;
+  -webkit-transition: background-color .2s ease-in;
+  transition: background-color .2s ease-in;
+  border-radius: .4em;
+  height: 3em;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#choose-date-button:hover {
+  background-color: #4f5b6b;
+  -webkit-transition: background-color .2s ease-in;
+  transition: background-color .2s ease-in;
+}
+
+#choose-date-button h3 {
+  color: #fff;
+  margin: .25em 8px 0px 8px;
+  text-align: center;
+}
+
+#date {
+  width: 60px;
+}
+
+#year {
+  width: 60px;
+}
+
+.modal-body .row h5 {
+  margin-left: 10px;
+}
+
+.modal-body .row textarea {
+  margin: 0px auto 20px;
+}
+
+.modal-body .row input {
+  margin-bottom: 16px;
+  margin-left: 36px;
+  width: 60%;
+}
+/*# sourceMappingURL=index.css.map */
