@@ -73,6 +73,21 @@
   width: 60px;
 }
 
+.modal-body .row #email,
+.modal-body .row textarea {
+  border: 1px solid #000;
+}
+
+.modal-body .row #reservation-error {
+  color: #f00;
+  display: none;
+}
+
+.modal-body .row #invalid-email-warning {
+  color: #f00;
+  display: none;
+}
+
 .modal-body .row h5 {
   margin-left: 10px;
 }
@@ -85,5 +100,9 @@
   margin-bottom: 16px;
   margin-left: 36px;
   width: 60%;
+}
+
+.modal-body .row #requests-char-count {
+  margin-left: 50px;
 }
 /*# sourceMappingURL=index.css.map */

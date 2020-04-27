@@ -20,5 +20,12 @@ from app import views
 urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('admin/', admin.site.urls),
-    path('reservations', views.Reservations.as_view(), name='reservations')
+    path('reservations', views.Reservations.as_view(), name='reservations'),
+    path('reservations/confirm/success', views.reservation_confirm_success, name='reservation_confirm_success'),
+    path('reservations/missing', views.resource_404, name='resource_404'),
+    path('reservations/confirm', views.reservation_confirm, name='reservation_confirm'),
+    path('reservations/scheduled', views.reservation_scheduled, name='reservation_scheduled'),
+    path('clients/verify', views.client_verify.as_view(), name='client_verify'),
+    path('manage/', views.admin_login.as_view(), name='admin_login'),
+    path('manage/login', views.admin_login.as_view(), name='admin_login'),
 ]

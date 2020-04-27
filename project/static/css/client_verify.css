@@ -1,0 +1,39 @@
+#first-input-row {
+  margin-top: 40px;
+}
+
+#invalid-info-error {
+  color: #f00;
+}
+
+.invalid {
+  border: 1px solid #f00;
+}
+
+#verification-error {
+  color: #f00;
+  display: none;
+}
+
+#submit-info-button {
+  background-color: #2f3640;
+  -webkit-transition: background-color .2s ease-in;
+  transition: background-color .2s ease-in;
+  border-radius: .4em;
+  height: 3em;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#submit-info-button:hover {
+  background-color: #4f5b6b;
+  -webkit-transition: background-color .2s ease-in;
+  transition: background-color .2s ease-in;
+}
+
+#submit-info-button h5 {
+  color: #fff;
+  margin: .5em 8px 0px 8px;
+  text-align: center;
+}
+/*# sourceMappingURL=client_verify.css.map */

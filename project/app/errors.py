@@ -1,0 +1,2 @@
+class OutstandingReservationExists(Exception):
+    pass

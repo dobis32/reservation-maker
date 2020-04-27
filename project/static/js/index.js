@@ -1,54 +1,7 @@
 const todayDate = new Date();
 
-function getCookie(name) {
-	var cookieValue = null;
-	if (document.cookie && document.cookie !== '') {
-		var cookies = document.cookie.split(';');
-		for (var i = 0; i < cookies.length; i++) {
-			var cookie = cookies[i].trim();
-			// Does this cookie string begin with the name we want?
-			if (cookie.substring(0, name.length + 1) === name + '=') {
-				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-				break;
-			}
-		}
-	}
-	return cookieValue;
-}
-
-async function postData(url = '', data = {}, headers = { 'Content-Type': 'application/json' }) {
-	// Default options are marked with *
-	const response = await fetch(url, {
-		method: 'POST', // *GET, POST, PUT, DELETE, etc.
-		mode: 'cors', // no-cors, *cors, same-origin
-		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-		credentials: 'same-origin', // include, *same-origin, omit
-		headers: {
-			'Content-Type': 'application/json',
-			'X-CSRFToken': getCookie('csrftoken')
-		},
-		redirect: 'follow', // manual, *follow, error
-		referrerPolicy: 'no-referrer', // no-referrer, *client
-		body: JSON.stringify(data) // body data type must match "Content-Type" header
-	});
-	return await response.json();
-}
-
-async function getData(url = '') {
-	// Default options are marked with *
-	const response = await fetch(url, {
-		method: 'GET', // *GET, POST, PUT, DELETE, etc.
-		mode: 'cors', // no-cors, *cors, same-origin
-		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-		credentials: 'same-origin', // include, *same-origin, omit
-		// headers: {
-		// 	'Content-Type': 'application/json'
-		// 	// 'Content-Type': 'application/x-www-form-urlencoded',
-		// },
-		redirect: 'follow', // manual, *follow, error
-		referrerPolicy: 'no-referrer' // no-referrer, *client
-	});
-	return await response.json();
+function clientRequestInput(event) {
+	document.querySelector('#requests-length').innerHTML = event.target.value.length;
 }
 
 async function initPage() {
@@ -102,16 +55,54 @@ async function dateChosen() {
 	handleFetchedReservationData(response);
 }
 
+function ValidateEmail(inputText) {
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+	if (inputText.match(mailformat)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+const toggleEmailWarning = {
+	off: function() {
+		document.querySelector('#email').style.border = '1px solid #000';
+		document.querySelector('#invalid-email-warning').style.display = 'none';
+	},
+	on: function() {
+		document.querySelector('#invalid-email-warning').style.display = 'inline';
+		document.querySelector('#email').style.border = '1px solid #f00';
+	}
+};
+
+const toggleReservationError = {
+	off: function() {
+		document.querySelector('#reservation-error').style.display = 'none';
+	},
+	on: function() {
+		document.querySelector('#reservation-error').style.display = 'block';
+	}
+};
+
 async function scheduleReservation() {
-	console.log('schedule appointment');
-	// parse date
-	const date = document.querySelector('#date-buffer').value;
-	// parse time
-	const time = document.querySelector('#time-buffer').value;
-	// POST to backend
-	let response = await postData(`/reservations`, { date, time });
-	// refresh page/redirect to confirmation page
-	console.log(response);
+	toggleEmailWarning.off();
+	toggleReservationError.off();
+	const email = document.querySelector('#email').value;
+	if (ValidateEmail(email)) {
+		const clientRequests = document.querySelector('#requests').value;
+		const date = document.querySelector('#date-buffer').value;
+		const time = document.querySelector('#time-buffer').value;
+		const location = document.querySelector('#location').value;
+		let response = await postData(`/reservations`, { date, time, location, email, requests: clientRequests });
+		if (response.result) goToScheduledSuccessPage();
+		else toggleReservationError.on();
+	} else {
+		toggleEmailWarning.on();
+	}
+}
+
+function goToScheduledSuccessPage() {
+	location.href = '/reservations/scheduled';
 }
 
 function setModalBuffers(event) {

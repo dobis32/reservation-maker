@@ -62,6 +62,18 @@
 
 .modal-body {
 	.row {
+		#email,
+		textarea {
+			border: 1px solid #000;
+		}
+		#reservation-error {
+			color: #f00;
+			display: none;
+		}
+		#invalid-email-warning {
+			color: #f00;
+			display: none;
+		}
 		h5 {
 			margin-left: 10px;
 		}
@@ -72,6 +84,10 @@
 			margin-bottom: 16px;
 			margin-left: 36px;
 			width: 60%;
+		}
+
+		#requests-char-count {
+			margin-left: 50px;
 		}
 	}
 }
