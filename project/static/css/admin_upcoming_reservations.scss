@@ -1,0 +1,12 @@
+h6 {
+	color: #17a2b8;
+}
+
+ul {
+	li {
+		cursor: pointer;
+		&:hover {
+			background: #93d6ff;
+		}
+	}
+}

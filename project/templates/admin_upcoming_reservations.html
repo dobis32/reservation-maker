@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_upcoming_reservations.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reservation Maker</title>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/admin/dashboard"><strong>Reservation Maker</strong></a>
+  </nav>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-md-8 col-sm-12 mt-5" id="scheduler">
+        <div class="row mb-3">
+          <h1>Upcoming Reservations</h1>
+        </div>
+        <div class="row">
+          <div class="card col-12 mb-3">
+            <div class="card-body ">
+              <div class="btn-group mb-2" role="group">
+                <button type="button" class="btn btn-info" onClick="navigate('today')">Today</button>
+                <button type="button" class="btn btn-info" onClick="navigate('7days')">7 Days</button>
+                <button type="button" class="btn btn-info" onClick="navigate('30days')">30 Days</button>
+              </div>
+              <div>
+                {% for reservationDate in reservationDates %}
+                <div class="row">
+                  <div class="col-12">
+                    <h6 class="ml-3 mt-4">{{reservationDate.date}}</h6>
+                  </div>
+                </div>
+                <div class="row mt-1">
+                  <div class="col-12">
+                    <ul class="list-group">
+                      {% for reservation in reservationDate.reservations %}
+                      <li class="list-group-item">
+                        <div class="row">
+                          <div class="col-3 col-xs-1">{{reservation.time}}</div>
+                          <div class="col-lg-3 col-sm-6">{{reservation.client.email}}</div>
+                          {% if reservation.cancelled %}
+                            <div class="col-3"><span class="badge badge-warning">Cancelled</span></div>
+                          {% else %}
+                            {% if reservation.confirmed %}
+                              <div class="col-3"><span class="badge badge-success">Confirmed</span></div>
+                            {% else %}
+                              <div class="col-3"><span class="badge badge-danger">Not Confirmed</span></div>
+                            {% endif %}
+                          {% endif %}
+                        </div>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!--  end scheduler -->
+    </div>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="{% static 'js/helper.js' %}"></script>
+<script src="{% static 'js/admin_validate.js' %}"></script>
+<script src="{% static 'js/admin_upcoming_reservations.js' %}"></script>
+</html>

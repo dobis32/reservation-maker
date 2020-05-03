@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,EAAE,CAAC;EACF,KAAK,EAAE,OAAO;CACd;;AAED,AACC,EADC,CACD,EAAE,CAAC;EACF,MAAM,EAAE,OAAO;CAIf;;AANF,AAGE,EAHA,CACD,EAAE,AAEA,MAAM,CAAC;EACP,UAAU,EAAE,OAAO;CACnB",
+    "sources": [
+        "admin_upcoming_reservations.scss"
+    ],
+    "names": [],
+    "file": "admin_upcoming_reservations.css"
+}

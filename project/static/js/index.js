@@ -5,17 +5,36 @@ function clientRequestInput(event) {
 }
 
 async function initPage() {
+	initDateControls();
+	let response = await getReservationData();
+	console.log(response);
+	handleFetchedReservationData(response);
+}
+initPage();
+
+function initDateControls() {
 	let month = document.querySelector('#month');
 	month.selectedIndex = todayDate.getMonth() + 1;
 	let year = document.querySelector('#year');
 	year.value = todayDate.getFullYear();
 	monthChange({ target: { value: month.value, selectedIndex: month.selectedIndex } });
-	let date = `${todayDate.getMonth() + 1}-${todayDate.getDate()}-${todayDate.getFullYear().toString().substring(2)}`;
-	let locationKey = document.querySelector('#location').value;
-	let response = await getData(`/reservations?date=${date}&location=${locationKey}`);
-	handleFetchedReservationData(response);
 }
-initPage();
+
+async function getReservationData() {
+	let date = getDateControlValuesAsString();
+	let locationKey = document.querySelector('#location').value;
+	return await getData(`/reservations?date=${date}&location=${locationKey}`);
+}
+
+function getDateControlValuesAsString() {
+	let currentMonth = todayDate.getMonth() + 1;
+	let todayCalendarDate = todayDate.getDate();
+	let currentYear = todayDate.getFullYear().toString().substring(2);
+	let date = `${currentMonth < 10 ? '0' + currentMonth.toString() : currentMonth}-`; // pad a zero, just in case
+	date += `${todayCalendarDate < 10 ? '0' + todayCalendarDate.toString() : todayCalendarDate}-`; // pad a zero, just in case
+	date += `${currentYear}`; // is a substring; will already be padded
+	return date;
+}
 
 function generateAvailability(reservations) {
 	document.querySelectorAll('.timeslot h1').forEach((timeslot) => {
@@ -46,10 +65,7 @@ function handleFetchedReservationData(response) {
 }
 
 async function dateChosen() {
-	let month = document.querySelector('#month').selectedIndex;
-	let day = document.querySelector('#date').value;
-	let year = document.querySelector('#year').value - 2000;
-	let formattedDate = `${month}-${day}-${year}`;
+	let formattedDate = getDateControlValuesAsString();
 	let locationKey = document.querySelector('#location').value;
 	let response = await getData(`/reservations?date=${formattedDate}&location=${locationKey}`);
 	handleFetchedReservationData(response);
@@ -94,6 +110,7 @@ async function scheduleReservation() {
 		const time = document.querySelector('#time-buffer').value;
 		const location = document.querySelector('#location').value;
 		let response = await postData(`/reservations`, { date, time, location, email, requests: clientRequests });
+		console.log(response);
 		if (response.result) goToScheduledSuccessPage();
 		else toggleReservationError.on();
 	} else {
@@ -111,7 +128,7 @@ function setModalBuffers(event) {
 		let dateValue = document.querySelector('#date').value;
 		let yearValue = document.querySelector('#year').value - 2000;
 		document.querySelector('#reservation-date').innerHTML = `${month.value} ${dateValue} ${yearValue}`;
-		document.querySelector('#date-buffer').value = `${month.selectedIndex}-${dateValue}-${yearValue}`;
+		document.querySelector('#date-buffer').value = getDateControlValuesAsString();
 		let time = event.target.id.substring(1, event.target.id.length);
 		document.querySelector('#time-buffer').value = time;
 		let timeTokens = time.split('-');

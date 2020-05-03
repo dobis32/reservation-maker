@@ -19,13 +19,18 @@ from app import views
 
 urlpatterns = [
     path('', views.Index.as_view(), name='index'),
-    path('admin/', admin.site.urls),
+    path('django/admin', admin.site.urls),
     path('reservations', views.Reservations.as_view(), name='reservations'),
     path('reservations/confirm/success', views.reservation_confirm_success, name='reservation_confirm_success'),
     path('reservations/missing', views.resource_404, name='resource_404'),
-    path('reservations/confirm', views.reservation_confirm, name='reservation_confirm'),
+    path('reservations/confirm', views.reservation_confirm.as_view(), name='reservation_confirm'),
     path('reservations/scheduled', views.reservation_scheduled, name='reservation_scheduled'),
     path('clients/verify', views.client_verify.as_view(), name='client_verify'),
-    path('manage/', views.admin_login.as_view(), name='admin_login'),
-    path('manage/login', views.admin_login.as_view(), name='admin_login'),
+    path('admin/', views.redirect_to_admin_login, name='redirect_to_admin_login'),
+    path('admin/login', views.admin_login.as_view(), name='admin_login'),
+    path('admin/dashboard', views.admin_dashboard.as_view(), name='admin_dashboard'),
+    path('admin/validate', views.verify_admin, name='verify_admin'),
+    path('admin/reservations', views.admin_reservations.as_view(), name="admin_reservations"),
+    path('admin/reservations/upcoming', views.admin_upcoming_reservations.as_view(), name='admin_upcoming_reservations'),
+    path('admin/reservations/dismiss', views.dismiss_notification, name='dismiss_notification')
 ]

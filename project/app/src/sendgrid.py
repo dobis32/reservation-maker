@@ -15,7 +15,7 @@ def sendSingleEmail(nonce, email_to, email_content):
     confirmationEmail = Mail(
     from_email='admin@reso.maker',
     to_emails=email_to,
-    subject='Rservation Confirmation',
+    subject='Reservation Confirmation',
     html_content=email_content
     )
     sg = getSendgridClient()
@@ -28,7 +28,7 @@ def sendSingleEmail(nonce, email_to, email_content):
 
 def sendReservationConfirmation(nonce, email_to):
     print('send reservation confirmation email')
-    email_content = '<h1>We need you to confirm your reservation!</h1><h2><a href="http://localhost:8000/reservation/confirm?id={n}">Click here to confirm your reservation.</a></h2>'.format(n = nonce)
+    email_content = '<h1>We need you to confirm your reservation!</h1><h2><a href="http://localhost:8000/reservations/confirm?id={n}">Click here to confirm your reservation.</a></h2>'.format(n = nonce)
     return sendSingleEmail(nonce, email_to, email_content)
 
 

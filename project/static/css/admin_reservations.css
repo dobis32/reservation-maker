@@ -1,0 +1,12 @@
+li {
+  cursor: pointer;
+}
+
+li:hover {
+  background: #93d6ff;
+}
+
+h6 {
+  color: #17a2b8;
+}
+/*# sourceMappingURL=admin_reservations.css.map */

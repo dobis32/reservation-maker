@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from app.models import UnverifiedClient, Client, Reservation
+from app.models import UnverifiedClient, Client
 class ClientVerify():
     def get(self, request):
         """Client verify API view logic for handling GET requests"""
@@ -13,7 +13,6 @@ class ClientVerify():
         except Exception as e:
             print(e)
         finally:
-            print(contextDict['unverifiedClient'])
             return render(request, 'client_verify.html', context=contextDict)
 
 
@@ -28,6 +27,7 @@ class ClientVerify():
             client.firstName = body['firstName']
             client.lastName = body['lastName']
             client.address = body['address']
+            client.newsletter = body['newsletter']
             client.verified = True
             client.save()
             response['result'] = True

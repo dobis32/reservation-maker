@@ -1,6 +1,7 @@
 let firstName = document.querySelector('#first-name');
 let lastName = document.querySelector('#last-name');
 let address = document.querySelector('#address');
+let newsletter = document.querySelector('#newsletter');
 let clientId = document.querySelector('#client-id');
 let reservationId = document.querySelector('#reservation-id');
 
@@ -27,11 +28,13 @@ async function submitInfo() {
 			firstName: firstName.value,
 			lastName: lastName.value,
 			address: address.value,
+			newsletter: newsletter.checked,
 			client: clientId.value
 		});
 		if (!response.result) toggleVerificationError.on();
 		else {
 			response = await postData('/reservations/confirm', { id: reservationId.value });
+			console.log(response);
 			if (response.result) {
 				location.href = `/reservations/confirm/success?id=${reservationId.value}`;
 			} else toggleVerificationError.on();

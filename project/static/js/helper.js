@@ -14,7 +14,7 @@ function getCookie(name) {
 	return cookieValue;
 }
 
-async function postData(url = '', data = {}, headers = { 'Content-Type': 'application/json' }) {
+async function postData(url = '', data = {}) {
 	// Default options are marked with *
 	const response = await fetch(url, {
 		method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -24,6 +24,61 @@ async function postData(url = '', data = {}, headers = { 'Content-Type': 'applic
 		headers: {
 			'Content-Type': 'application/json',
 			'X-CSRFToken': getCookie('csrftoken')
+		},
+		redirect: 'follow', // manual, *follow, error
+		referrerPolicy: 'no-referrer', // no-referrer, *client
+		body: JSON.stringify(data) // body data type must match "Content-Type" header
+	});
+	return await response.json();
+}
+
+async function putData(url = '', data = {}) {
+	// Default options are marked with *
+	const response = await fetch(url, {
+		method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+		mode: 'cors', // no-cors, *cors, same-origin
+		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+		credentials: 'same-origin', // include, *same-origin, omit
+		headers: {
+			'Content-Type': 'application/json',
+			'X-CSRFToken': getCookie('csrftoken')
+		},
+		redirect: 'follow', // manual, *follow, error
+		referrerPolicy: 'no-referrer', // no-referrer, *client
+		body: JSON.stringify(data) // body data type must match "Content-Type" header
+	});
+	return await response.json();
+}
+
+async function deleteData(url = '', data = {}) {
+	// Default options are marked with *
+	const response = await fetch(url, {
+		method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+		mode: 'cors', // no-cors, *cors, same-origin
+		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+		credentials: 'same-origin', // include, *same-origin, omit
+		headers: {
+			'Content-Type': 'application/json',
+			'X-CSRFToken': getCookie('csrftoken')
+		},
+		redirect: 'follow', // manual, *follow, error
+		referrerPolicy: 'no-referrer', // no-referrer, *client
+		body: JSON.stringify(data) // body data type must match "Content-Type" header
+	});
+	return await response.json();
+}
+
+async function postDataWAdmin(url = '', data = {}) {
+	// Default options are marked with *
+	const response = await fetch(url, {
+		method: 'POST', // *GET, POST, PUT, DELETE, etc.
+		mode: 'cors', // no-cors, *cors, same-origin
+		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+		credentials: 'same-origin', // include, *same-origin, omit
+		headers: {
+			'Content-Type': 'application/json',
+			'X-CSRFToken': getCookie('csrftoken'),
+			Authorization: sessionStorage.getItem('adminToken@resv_maker')
 		},
 		redirect: 'follow', // manual, *follow, error
 		referrerPolicy: 'no-referrer', // no-referrer, *client

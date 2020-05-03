@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_dashboard.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reservation Maker</title>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/admin/dashboard"><strong>Reservation Maker</strong></a>
+  </nav>
+  <div class="container-fluid">
+    
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-md-8 col-sm-12 mt-5" id="scheduler">
+        <div class="row mb-3">
+          <h1>Admin Dashboard</h1>
+        </div>
+        <div class="row">
+          <div class="card col-12 mb-3">
+            <div class="card-body ">
+              <h3>Reservations</h3>
+              <ul class="list-group">
+                <li class="list-group-item" href="/admin/reservations/upcoming?start={{todayDate}}&end={{todayDate}}">Upcoming Reservations <span id="upcoming-reservations-badge" class="ml-3 badge badge-primary">Today: {{reservations.today}}</span></li>
+                <li class="list-group-item" href="/admin/reservations?notify_admin=False&cancelled=False&unconfirmed=True">New Reservations <span id="new-reservations-badge" class="ml-3 badge badge-primary">{{reservations.new}}</span></li>
+                <li class="list-group-item" href="/admin/reservations?notify_admin=False&cancelled=True&unconfirmed=True">New Cancellations <span id="cancelled-reservations-badge" class="ml-3 badge badge-primary">{{reservations.cancelled}}</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card col-12 mb-3">
+            <div class="card-body ">
+              <h3>Client</h3>
+              <ul class="list-group">
+                <li class="list-group-item">Send News Letter</li>
+                <li class="list-group-item">View Clients</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card col-12">
+            <div class="card-body ">
+              <h3>Settings</h3>
+              <ul class="list-group">
+                <li class="list-group-item">Manage Users</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div><!--  end scheduler -->
+    </div>
+  </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="{% static 'js/helper.js' %}"></script>
+<script src="{% static 'js/admin_validate.js' %}"></script>
+<script src="{% static 'js/admin_dashboard.js' %}"></script>
+</html>

@@ -1,0 +1,12 @@
+h6 {
+  color: #17a2b8;
+}
+
+ul li {
+  cursor: pointer;
+}
+
+ul li:hover {
+  background: #93d6ff;
+}
+/*# sourceMappingURL=admin_upcoming_reservations.css.map */
