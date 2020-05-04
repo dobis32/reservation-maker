@@ -1,0 +1,5 @@
+.deadlink a {
+	color: grey;
+	text-decoration: none;
+	cursor: default;
+}

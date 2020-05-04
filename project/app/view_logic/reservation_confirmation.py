@@ -7,11 +7,10 @@ class ReservationConfirmation():
     def get(self, request):
         """Render confirmation page for reservation with pk corresponding to GET query"""
         try:
-            id = request.query_params['id']
-            if not id:
+            n = request.query_params['reservation']
+            if not n:
                 raise Exception()
-            print('FART')
-            reservation = Reservation.objects.get(pk=int(id))
+            reservation = Reservation.objects.get(confirmation_nonce=n)
             return render(request, 'reservation_confirm.html', context={'reservation': reservation})
         except Exception as e:
             print(e)
@@ -24,13 +23,14 @@ class ReservationConfirmation():
             response = {'result' : False}
             id = request.data['id']
             if not id:
-                raise Exception()
+                raise Exception('Missing ID')
             reservation = Reservation.objects.get(pk=int(id))
             reservation.confirmed = True
             reservation.save()
+            reservation.sendReservationLink(reservation.confirmation_nonce, reservation.client.email)
             response['result'] = True
         except Exception as e:
-            print(e)
+            print('error', e)
             response['result'] = False
         finally:
             return JsonResponse(response)

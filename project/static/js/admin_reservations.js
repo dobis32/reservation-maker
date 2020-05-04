@@ -11,7 +11,7 @@ function applyFilter() {
 }
 
 async function dismissNotification(n) {
-	let response = await putData('/admin/reservations/dismiss', { id: n, update: 'toggle' });
+	let response = await putData('/admin/reservations/dismiss', { id: n });
 	if (response.result) location.reload();
 	else console.log(new Error('failed to dismiss notification'));
 }

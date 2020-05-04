@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "AAAA,AAAA,EAAE,CAAC,EAAE,CAAC;EACL,MAAM,EAAE,OAAO;CAIf;;AALD,AAEC,EAFC,CAAC,EAAE,AAEH,MAAM,CAAC;EACP,UAAU,EAAE,OAAO;CACnB;;AAGF,AAAA,EAAE,CAAC;EACF,KAAK,EAAE,OAAO;CACd",
     "sources": [
-        "admin_reservations.scss"
+        "admin_cancellations.scss"
     ],
     "names": [],
-    "file": "admin_reservations.css"
+    "file": "admin_cancellations.css"
 }

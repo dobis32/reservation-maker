@@ -28,16 +28,18 @@ class Client(models.Model):
         if client.verified:
             # send reservation confirmation
             n = nonce(12)
+            reservation.confirmation_nonce = n
+            reservation.save()
             return send_grid_py.sendReservationConfirmation(nonce=n, email_to=client.email)
         else:
             # send request for client info
             result_tuple = UnverifiedClient.objects.get_or_create(client=client)
             unverifiedClient = result_tuple[0]
-            if(result_tuple[1]):
+            if result_tuple[1]:
                 n = nonce(12)
                 unverifiedClient.nonce = n
-                unverifiedClient.reservation = reservation
-                unverifiedClient.save()
+            unverifiedClient.reservation = reservation
+            unverifiedClient.save()
             return send_grid_py.sendClientVerification(nonce=unverifiedClient.nonce, email_to=client.email)
 
 class Location(models.Model):
@@ -67,6 +69,10 @@ class Reservation(models.Model):
             return True
         except Exception:
             return False
+            
+    @classmethod
+    def sendReservationLink(self, nonce, clientEmail):
+        return send_grid_py.sendReservationLink(nonce, clientEmail)
 
 class UnverifiedClient(models.Model):
     """Unverified clients data model"""

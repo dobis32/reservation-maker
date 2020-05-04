@@ -20,6 +20,7 @@ class Reservations():
 
     def post(self, request):
         """Reservation API view logic for creating new reservations"""
+        print('creating reservation')
         body = request.data
         responseData = {
             'result': True,
@@ -28,7 +29,6 @@ class Reservations():
         try:
             if not Reservation.reservationAvailable(date=body['date'], time=body['time'], location=body['location']):
                 raise OutstandingReservationExists() 
-            
             result_tuple = Client.objects.get_or_create(email=body['email'])
             client = result_tuple[0]
             desiredLocation = Location.objects.get(pk=int(body['location']))
@@ -37,6 +37,7 @@ class Reservations():
             responseData['result'] = Client.sendReservationConfirmation(client, newReservation)
             if not responseData['result']:
                 raise Exception()
+            print('reservation created')
         except Location.DoesNotExist as e:
             responseData['message'] = 'Invalid location'
             responseData['result'] = False

@@ -24,7 +24,7 @@
 }
 
 .timeslot .available {
-  background-color: #273c75;
+  background-color: #17a2b8;
   -webkit-transition: background-color .2s ease-in;
   transition: background-color .2s ease-in;
   border-radius: .2em;
@@ -32,37 +32,15 @@
 }
 
 .timeslot .available:hover {
-  background-color: #4063c2;
+  background-color: #0d6572;
   -webkit-transition: background-color .2s ease-in;
   transition: background-color .2s ease-in;
 }
 
 .timeslot .unavailable {
-  color: #7f8fa6;
-  background-color: #718093;
-  border-radius: .2em;
-}
-
-#choose-date-button {
-  background-color: #2f3640;
-  -webkit-transition: background-color .2s ease-in;
-  transition: background-color .2s ease-in;
-  border-radius: .4em;
-  height: 3em;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-#choose-date-button:hover {
-  background-color: #4f5b6b;
-  -webkit-transition: background-color .2s ease-in;
-  transition: background-color .2s ease-in;
-}
-
-#choose-date-button h3 {
   color: #fff;
-  margin: .25em 8px 0px 8px;
-  text-align: center;
+  background-color: #6c757d;
+  border-radius: .2em;
 }
 
 #date {

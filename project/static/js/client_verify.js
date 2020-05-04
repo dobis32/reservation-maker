@@ -14,12 +14,12 @@ const toggleVerificationError = {
 	}
 };
 
-async function debug() {
-	toggleVerificationError.off();
-	response = await postData('/reservations/confirm', { id: reservationId.value });
-	if (response.result) location.href = `/reservations/confirm/success?id=${reservationId.value}`;
-	else toggleVerificationError.on();
-}
+// async function debugConfirm() {
+// 	toggleVerificationError.off();
+// 	response = await postData('/reservations/confirm', { id: reservationId.value });
+// 	if (response.result) location.href = `/reservations/confirm/success?id=${reservationId.value}`;
+// 	else toggleVerificationError.on();
+// }
 
 async function submitInfo() {
 	toggleVerificationError.off();
@@ -34,7 +34,6 @@ async function submitInfo() {
 		if (!response.result) toggleVerificationError.on();
 		else {
 			response = await postData('/reservations/confirm', { id: reservationId.value });
-			console.log(response);
 			if (response.result) {
 				location.href = `/reservations/confirm/success?id=${reservationId.value}`;
 			} else toggleVerificationError.on();

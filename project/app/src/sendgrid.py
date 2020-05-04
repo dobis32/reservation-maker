@@ -11,11 +11,11 @@ def getSendgridClient():
         print(e)
         return False
 
-def sendSingleEmail(nonce, email_to, email_content):
+def sendSingleEmail(nonce, email_to, email_subject, email_content):
     confirmationEmail = Mail(
     from_email='admin@reso.maker',
     to_emails=email_to,
-    subject='Reservation Confirmation',
+    subject=email_subject,
     html_content=email_content
     )
     sg = getSendgridClient()
@@ -25,26 +25,28 @@ def sendSingleEmail(nonce, email_to, email_content):
         response = sg.send(confirmationEmail)
         return handleSgResponse(response)
 
-
 def sendReservationConfirmation(nonce, email_to):
-    print('send reservation confirmation email')
-    email_content = '<h1>We need you to confirm your reservation!</h1><h2><a href="http://localhost:8000/reservations/confirm?id={n}">Click here to confirm your reservation.</a></h2>'.format(n = nonce)
-    return sendSingleEmail(nonce, email_to, email_content)
+    email_subject = 'Reservation Confirmation'
+    email_content = '<h1>We need you to confirm your reservation!</h1><h2><a href="http://localhost:8000/reservations/confirm?reservation={n}">Click here to confirm your reservation.</a></h2>'.format(n = nonce)
+    return sendSingleEmail(nonce, email_to, email_subject, email_content)
 
+def sendReservationLink(nonce, email_to):
+    email_subject = 'Your Reservation'
+    email_content = '<h1>Your reservation has been confirmed.</h1><h2><a href="http://localhost:8000/reservations/review?reservation={n}">Click here to review your resrevation details or cancel your reservation.</a></h2>'.format(n = nonce)
+    return sendSingleEmail(nonce, email_to, email_subject, email_content)
 
 def sendClientVerification(nonce, email_to):
-    print('send client verification email')
     result = None
     try:
+        email_subject = 'Verify Your Email'
         email_content = '<h1>Greetings!</h1><h2>We need you fill out some basic information for us.</h2><h2><a href="http://localhost:8000/clients/verify?id={n}">Click here to fill-out our new-client form!</a></h2>'.format(n = nonce)
-        result = sendSingleEmail(nonce, email_to, email_content)
+        result = sendSingleEmail(nonce, email_to, email_subject, email_content)
         return result
     except Exception as e:
         print(e)
         result = False
     finally:
         return result
-
 
 def handleSgResponse(response):
     print('RESPONSE STATUS CODE', response.status_code)

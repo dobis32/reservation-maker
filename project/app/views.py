@@ -12,6 +12,7 @@ from app.view_logic.admin_login import AdminLogin
 from app.view_logic.admin_dashboard import AdminDashboard
 from app.view_logic.admin_upcoming_reservations import AdminUpcomingReservations
 from app.view_logic.admin_reservations import AdminReservations
+from app.view_logic.admin_cancellations import AdminCancellations
 from app.src.validators import adminValidator
 from app.models import Reservation
 import ast
@@ -57,7 +58,6 @@ class admin_login(APIView):
         """Handle POST requests"""
         return self.logic.post(request)
 
-
 class reservation_confirm(APIView):
     """API View for Reservation confirmations"""
     logic = ReservationConfirmation()
@@ -77,7 +77,7 @@ class admin_dashboard(APIView):
         return self.logic.post(request)
 
 class admin_upcoming_reservations(APIView):
-    """API View for Admin upcoming reservations"""
+    """API View for upcoming reservations"""
     logic = AdminUpcomingReservations()
     def get(self, request):
         return self.logic.get(request)
@@ -86,7 +86,7 @@ class admin_upcoming_reservations(APIView):
         return self.logic.post(request)
 
 class admin_reservations(APIView):
-    """API View for Admin reservations management"""
+    """API View for reservations management"""
     logic = AdminReservations()
     def get(self, request):
         return self.logic.get(request)
@@ -99,6 +99,12 @@ class admin_reservations(APIView):
 
     def put(self, request):
         return self.logic.put(request)
+
+class admin_cancellations(APIView):
+    """API View for cancelled-reservations management"""
+    logic = AdminCancellations()
+    def get(self, request):
+        return self.logic.get(request)
 
 @api_view(['PUT'])
 def dismiss_notification(request):
@@ -124,8 +130,6 @@ def verify_admin(request):
         response['result'] = False
     finally:
         return JsonResponse(response)
-
-    
 
 @api_view(['GET'])
 def reservation_confirm_success(request):

@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/admin_dashboard.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deadlink.css' %}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reservation Maker</title>
 </head>
@@ -22,13 +23,20 @@
           <h1>Admin Dashboard</h1>
         </div>
         <div class="row">
+          <nav class="col-12" >
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active deadlink"><a href="#">Dashboard</a></li> <!--django goes to /admin/null if I don't put an anchor here (not sure why)-->
+            </ol>
+          </nav>
+        </div>
+        <div class="row">
           <div class="card col-12 mb-3">
             <div class="card-body ">
               <h3>Reservations</h3>
               <ul class="list-group">
-                <li class="list-group-item" href="/admin/reservations/upcoming?start={{todayDate}}&end={{todayDate}}">Upcoming Reservations <span id="upcoming-reservations-badge" class="ml-3 badge badge-primary">Today: {{reservations.today}}</span></li>
-                <li class="list-group-item" href="/admin/reservations?notify_admin=False&cancelled=False&unconfirmed=True">New Reservations <span id="new-reservations-badge" class="ml-3 badge badge-primary">{{reservations.new}}</span></li>
-                <li class="list-group-item" href="/admin/reservations?notify_admin=False&cancelled=True&unconfirmed=True">New Cancellations <span id="cancelled-reservations-badge" class="ml-3 badge badge-primary">{{reservations.cancelled}}</span></li>
+                <li class="list-group-item" href="/admin/reservations/upcoming?start={{todayDate}}&end={{todayDate}}">Upcoming Reservations <span id="upcoming-reservations-badge" href="/admin/reservations/upcoming?start={{todayDate}}&end={{todayDate}}" class="ml-3 badge badge-primary">Today: {{reservations.today}}</span></li>
+                <li class="list-group-item" href="/admin/reservations?notify_admin=False&cancelled=False&unconfirmed=True">Reservations <span id="new-reservations-badge /admin/reservations?notify_admin=True&cancelled=False&unconfirmed=True" class="ml-3 badge badge-primary">{{reservations.new}} New</span></li>
+                <li class="list-group-item" href="/admin/reservations/cancellations">Cancelled Reservations <span id="cancelled-reservations-badge" href="/admin/reservations/cancellations?notify_admin=True" class="ml-3 badge badge-primary">{{reservations.cancelled}} New</span></li>
               </ul>
             </div>
           </div>

@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/admin_reservations.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/deadlink.css' %}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reservation Maker</title>
 </head>
@@ -15,11 +16,18 @@
     <a class="navbar-brand" href="/admin/dashboard"><strong>Reservation Maker</strong></a>
   </nav>
   <div class="container-fluid">
-    
     <div class="row justify-content-center">
       <div class="col-xl-8 col-md-8 col-sm-12 mt-5" id="scheduler">
         <div class="row mb-3">
           <h1>Reservations</h1>
+        </div>
+        <div class="row">
+          <nav class="col-12" >
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+              <li class="breadcrumb-item active deadlink"><a href="#">Reservations</a></li> <!--django goes to /admin/null if I don't put an anchor here (not sure why)-->
+            </ol>
+          </nav>
         </div>
         <div class="row">
           <div class="card col-12 mb-3">
@@ -29,13 +37,14 @@
                     <h3>Filter</h3>
                     <label for="new">New Only</label>
                     <input id="notify-admin" class="mr-3" type="checkbox" name="new" {% if notify_admin == "True" %}checked{% endif %}>
-                    <!-- <label for="cancelled">Show Cancelled</label>
-                    <input id="cancelled" class="mr-3" type="checkbox" name="cancelled" {% if cancelled == "True" %}checked{% endif %}> -->
                     <label for="unconfirmed">Show Unconfirmed</label>
                     <input id="unconfirmed" class="mr-3" type="checkbox" name="unconfirmed" {% if unconfirmed  == "True" %}checked{% endif %}>
                     <button type="button" class="btn btn-info" onClick="applyFilter()">Apply</button>
                   </div>
                 </div>
+                {% if noReservations %}
+                  <h2 class="mt-3">No Reservations To Show</h2 class="mt-3">
+                {% endif %}
                 {% for reservationDate in reservationDates %}
                 <div class="row">
                   <div class="col-12">
@@ -54,18 +63,17 @@
                           {% if reservation.notify_admin %}
                             <span class="badge badge-info">New</span>
                           {% endif %}
-                          <!-- {% if reservation.cancelled %}
-                            <span class="badge badge-warning">Cancelled</span>
-                          {% endif %} -->
                           {% if reservation.confirmed %}
                             <span class="badge badge-success">Confirmed</span>
                           {% else %}
                             <span class="badge badge-danger">Not Confirmed</span>
                           {% endif %}
                           </div>
+                          {% if reservation.notify_admin %}
                           <div class="col-3">
                             <button type="button" class="btn btn-sm btn-outline-secondary" onClick="dismissNotification({{reservation.id}})">Dismiss</button>
                           </div>
+                          {% endif %}
                         </div>
                       </li>
                       {% endfor %}

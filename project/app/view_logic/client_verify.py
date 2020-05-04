@@ -15,7 +15,6 @@ class ClientVerify():
         finally:
             return render(request, 'client_verify.html', context=contextDict)
 
-
     def post(self, request):
         """Client verify API view logic for handling POST requests"""
         try:

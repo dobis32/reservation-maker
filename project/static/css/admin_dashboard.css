@@ -1,8 +1,8 @@
-li {
+ul li {
   cursor: pointer;
 }
 
-li:hover {
+ul li:hover {
   background: #93d6ff;
 }
 /*# sourceMappingURL=admin_dashboard.css.map */

@@ -22,7 +22,7 @@
 
 #login-error-message {
   display: none;
-  color: #f00;
+  color: #dc3545;
 }
 
 #login-error-message h3 {
@@ -30,6 +30,6 @@
 }
 
 .input-error {
-  border: 1px solid #f00;
+  border: 1px solid #dc3545;
 }
 /*# sourceMappingURL=admin_login.css.map */

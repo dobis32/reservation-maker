@@ -32,5 +32,6 @@ urlpatterns = [
     path('admin/validate', views.verify_admin, name='verify_admin'),
     path('admin/reservations', views.admin_reservations.as_view(), name="admin_reservations"),
     path('admin/reservations/upcoming', views.admin_upcoming_reservations.as_view(), name='admin_upcoming_reservations'),
-    path('admin/reservations/dismiss', views.dismiss_notification, name='dismiss_notification')
+    path('admin/reservations/dismiss', views.dismiss_notification, name='dismiss_notification'),
+    path('admin/reservations/cancellations', views.admin_cancellations.as_view(), name="admin_cancellations")
 ]
