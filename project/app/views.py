@@ -8,11 +8,13 @@ from app.view_logic.index import Index
 from app.view_logic.reservations import Reservations
 from app.view_logic.client_verify import ClientVerify
 from app.view_logic.reservation_confirmation import ReservationConfirmation
+from app.view_logic.reservation_review import ReservationReview
 from app.view_logic.admin_login import AdminLogin
 from app.view_logic.admin_dashboard import AdminDashboard
 from app.view_logic.admin_upcoming_reservations import AdminUpcomingReservations
 from app.view_logic.admin_reservations import AdminReservations
 from app.view_logic.admin_cancellations import AdminCancellations
+from app.view_logic.admin_clients import AdminClients
 from app.src.validators import adminValidator
 from app.models import Reservation
 import ast
@@ -103,6 +105,24 @@ class admin_reservations(APIView):
 class admin_cancellations(APIView):
     """API View for cancelled-reservations management"""
     logic = AdminCancellations()
+    def get(self, request):
+        return self.logic.get(request)
+
+class reservation_review(APIView):
+    """API View for clients to review and/or cancel their reservations"""
+    logic = ReservationReview()
+    def get(self, request):
+        return self.logic.get(request)
+
+    def delete(self, request):
+        return self.logic.delete(request)
+
+    def put(self, request):
+        return self.logic.put(request)
+
+class admin_clients(APIView):
+    """API View for clients to review and/or cancel their reservations"""
+    logic = AdminClients()
     def get(self, request):
         return self.logic.get(request)
 

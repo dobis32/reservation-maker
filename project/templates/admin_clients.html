@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_upcoming_reservations.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_clients.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/deadlink.css' %}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Reservation Maker</title>
@@ -22,48 +22,31 @@
           <nav class="col-12" >
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
-              <li class="breadcrumb-item"><a href="/admin/reservations">Reservations</a></li>
-              <li class="breadcrumb-item active deadlink"><a href="#">Upcoming</a></li> <!--django goes to /admin/null if I don't put an anchor here (not sure why)-->
+              <li class="breadcrumb-item active deadlink"><a href="#">Clients</a></li> <!--django goes to /admin/null if I don't put an anchor here (not sure why)-->
             </ol>
           </nav>
         </div>
         <div class="row mb-3">
-          <h1>Upcoming Reservations</h1>
+          <h1>Reservations</h1>
         </div>
         <div class="row">
           <div class="card col-12 mb-3">
             <div class="card-body ">
-              <div class="btn-group mb-2" role="group">
-                <button type="button" class="btn btn-info" onClick="navigate('today')">Today</button>
-                <button type="button" class="btn btn-info" onClick="navigate('7days')">7 Days</button>
-                <button type="button" class="btn btn-info" onClick="navigate('30days')">30 Days</button>
-              </div>
-              <div>
-                {% if noReservations %}
-                  <h2 class="mt-3">No Upcoming Reservations To Show</h2 class="mt-3">
-                {% endif %}
-                {% for reservationDate in reservationDates %}
-                <div class="row">
-                  <div class="col-12">
-                    <h6 class="ml-3 mt-4">{{reservationDate.date}}</h6>
-                  </div>
-                </div>
                 <div class="row mt-1">
                   <div class="col-12">
                     <ul class="list-group">
-                      {% for reservation in reservationDate.reservations %}
-                      <li class="list-group-item">
+                      {% for client in clients %}
+                      <li class="list-group-item" onClick="navigateTo({{client.id}})">
                         <div class="row">
-                          <div class="col-3 col-xs-1">{{reservation.time}}</div>
-                          <div class="col-lg-3 col-sm-6">{{reservation.client.email}}</div>
-                          {% if reservation.cancelled %}
-                            <div class="col-3"><span class="badge badge-warning">Cancelled</span></div>
+                          <div class="col-lg-4 col-8 mt-1">{{client.email}}</div>
+                          {% if client.verified %}
+                          <div class="col-4 mt-1">
+                            <div class="badge badge-primary">Verified</div>
+                          </div>
                           {% else %}
-                            {% if reservation.confirmed %}
-                              <div class="col-3"><span class="badge badge-success">Confirmed</span></div>
-                            {% else %}
-                              <div class="col-3"><span class="badge badge-danger">Not Confirmed</span></div>
-                            {% endif %}
+                          <div class="col-4 mt-1">
+                            <div class="badge badge-warning">Unverified</div>
+                          </div>
                           {% endif %}
                         </div>
                       </li>
@@ -71,8 +54,6 @@
                     </ul>
                   </div>
                 </div>
-                {% endfor %}
-              </div>
             </div>
           </div>
         </div>
@@ -85,5 +66,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="{% static 'js/helper.js' %}"></script>
 <script src="{% static 'js/admin_validate.js' %}"></script>
-<script src="{% static 'js/admin_upcoming_reservations.js' %}"></script>
+<script src="{% static 'js/admin_clients.js' %}"></script>
 </html>

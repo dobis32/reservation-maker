@@ -57,12 +57,12 @@
 }
 
 .modal-body .row #reservation-error {
-  color: #f00;
+  color: #dc3545;
   display: none;
 }
 
 .modal-body .row #invalid-email-warning {
-  color: #f00;
+  color: #dc3545;
   display: none;
 }
 

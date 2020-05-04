@@ -1,0 +1,9 @@
+#cancellation-error {
+	color: #dc3545;
+	display: none;
+}
+
+#cancellation-success {
+	color: #28a745;
+	display: none;
+}

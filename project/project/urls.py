@@ -24,6 +24,7 @@ urlpatterns = [
     path('reservations/confirm/success', views.reservation_confirm_success, name='reservation_confirm_success'),
     path('reservations/missing', views.resource_404, name='resource_404'),
     path('reservations/confirm', views.reservation_confirm.as_view(), name='reservation_confirm'),
+    path('reservations/review', views.reservation_review.as_view(), name='reservations_review'),
     path('reservations/scheduled', views.reservation_scheduled, name='reservation_scheduled'),
     path('clients/verify', views.client_verify.as_view(), name='client_verify'),
     path('admin/', views.redirect_to_admin_login, name='redirect_to_admin_login'),
@@ -33,5 +34,6 @@ urlpatterns = [
     path('admin/reservations', views.admin_reservations.as_view(), name="admin_reservations"),
     path('admin/reservations/upcoming', views.admin_upcoming_reservations.as_view(), name='admin_upcoming_reservations'),
     path('admin/reservations/dismiss', views.dismiss_notification, name='dismiss_notification'),
-    path('admin/reservations/cancellations', views.admin_cancellations.as_view(), name="admin_cancellations")
+    path('admin/reservations/cancellations', views.admin_cancellations.as_view(), name="admin_cancellations"),
+    path('admin/clients', views.admin_clients.as_view(), name="admin_clients"),
 ]

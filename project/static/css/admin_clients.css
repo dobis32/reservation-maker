@@ -1,0 +1,8 @@
+ul li {
+  cursor: pointer;
+}
+
+ul li:hover {
+  background: #93d6ff;
+}
+/*# sourceMappingURL=admin_clients.css.map */
