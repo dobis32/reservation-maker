@@ -55,7 +55,7 @@
                   <div class="col-12">
                     <ul class="list-group">
                       {% for reservation in reservationDate.reservations %}
-                      <li class="list-group-item">
+                      <li class="list-group-item" onClick="review('{{reservation.confirmation_nonce}}')">
                         <div class="row">
                           <div class="col-3 col-xs-1 mt-1">{{reservation.time}}</div>
                           <div class="col-lg-3 col-sm-6 mt-1">{{reservation.client.email}}</div>

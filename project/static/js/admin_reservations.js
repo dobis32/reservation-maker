@@ -15,3 +15,7 @@ async function dismissNotification(n) {
 	if (response.result) location.reload();
 	else console.log(new Error('failed to dismiss notification'));
 }
+
+function review(resv_nonce) {
+	location.href = `/reservations/review?reservation=${resv_nonce}`;
+}

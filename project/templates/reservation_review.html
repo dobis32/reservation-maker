@@ -24,7 +24,7 @@
         <h5>Location: {{reservation.location.name}}, {{reservation.location.address}}</h5>
         <p>Please review the following information. If there is anything that needs to be corrected, call us at {{reservation.location.contact}}</p>
         <input type="hidden" id="nonce-buffer" value="{{reservation.confirmation_nonce}}">
-        <button class="btn btn-danger" id="cancel-button" onClick="cancelReservation()">Cancel My Reservation</button>
+        <button class="btn btn-danger" id="cancel-button" onClick="cancelReservation()">Cancel Reservation</button>
         <h4 id="cancellation-error" class="mt-2">Something went wrong. Please try again.</h4>
         <h4 id="cancellation-success" class="mt-2">Reservation cancelled successfully.</h4>
       </div><!--  end scheduler -->
